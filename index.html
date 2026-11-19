@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="A free, self-directed psychology degree as a roadmap of open lectures and textbooks. Progress saves in your browser.">
+<title>The Open Psychology Degree</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: a quiet reading column like a course catalogue. Navy ink on white by day, white ink on deep navy by night. */
+:root{
+  --bg:#FFFFFF; --surface:#F5F8FE; --soft:#E8EFFC; --ink:#0F1D44; --muted:#52628C; --line:#D5DDF0;
+  --accent:#18358A; --accent-ink:#FFFFFF; --focus:#2F5BD6;
+  --display:'Newsreader',Georgia,'Times New Roman',serif;
+  --ui:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1330; --surface:#0F1B40; --soft:#16255A; --ink:#F2F6FF; --muted:#9DB0DC; --line:#25376B;
+    --accent:#C7D8FF; --accent-ink:#0A1330; --focus:#8FB0FF; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1330; --surface:#0F1B40; --soft:#16255A; --ink:#F2F6FF; --muted:#9DB0DC; --line:#25376B;
+  --accent:#C7D8FF; --accent-ink:#0A1330; --focus:#8FB0FF; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--ui);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:3px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.banner{background:var(--accent);color:var(--accent-ink);font-size:13px;text-align:center;padding:8px 16px}
+.top{border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:12px}
+.brand{font:500 20px/1.1 var(--display);text-decoration:none;letter-spacing:-.01em}
+.nav{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.nav a,.nav button{font-size:14px;text-decoration:none;padding:6px 10px;border-radius:6px;border:0;background:none;color:var(--muted)}
+.nav a:hover,.nav button:hover{color:var(--ink);background:var(--surface)}
+.nav a[aria-current="page"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--accent)}
+
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.015em;text-wrap:balance;margin:0}
+.hero{padding-block:72px 56px;border-bottom:1px solid var(--line)}
+.hero h1{font-size:clamp(40px,7vw,68px);line-height:1.04;max-width:14em}
+.hero h1 em{font-style:italic}
+.hero p{font-size:18px;color:var(--muted);max-width:34em;margin:20px 0 0}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-block;text-decoration:none;font-size:14px;font-weight:600;padding:12px 18px;border:1px solid var(--ink);border-radius:4px;background:none;color:var(--ink)}
+.btn.solid{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:hover{background:var(--soft)}
+.btn.solid:hover{filter:brightness(1.12);background:var(--accent)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding-block:48px 20px}
+.sec-head h2{font-size:30px}
+.sec-head span{font-size:13px;color:var(--muted)}
+
+.course-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;border-top:1px solid var(--line)}
+.course-list button{display:grid;grid-template-columns:36px 1fr;gap:4px 12px;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:18px 4px;min-width:0}
+.course-list button:hover{background:var(--surface)}
+.course-list .num{font-size:13px;color:var(--muted);padding-top:5px;font-variant-numeric:tabular-nums}
+.course-list h3{font-size:22px}
+.course-list p{margin:4px 0 0;color:var(--muted);font-size:14px;grid-column:2}
+.course-list .cnt{font-size:12px;color:var(--muted);grid-column:2;margin-top:6px}
+
+.prose{max-width:40em}
+.prose h2{font-size:28px;margin:44px 0 12px}
+.prose p,.prose li{color:var(--muted)}
+.prose strong{color:var(--ink);font-weight:600}
+.band{background:var(--surface);border-block:1px solid var(--line);margin-top:56px}
+.band .wrap{padding-block:48px}
+.rule-card{border:1px solid var(--line);background:var(--bg);padding:20px 22px;border-radius:6px;margin-top:20px}
+.rule-card ul{margin:8px 0 0;padding-left:20px}
+.rule-card li{color:var(--ink);margin:4px 0}
+
+footer{border-top:1px solid var(--line);margin-top:72px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;gap:16px 28px;flex-wrap:wrap;justify-content:space-between}
+
+/* curriculum */
+.page-head{padding-block:48px 8px}
+.page-head h1{font-size:clamp(34px,5vw,48px);margin-top:4px}
+.page-head p{color:var(--muted);max-width:42em}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.toolbar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding-block:16px}
+.search{flex:1 1 260px;min-width:0}
+.search input{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink)}
+.search input::placeholder{color:var(--muted)}
+.switch{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer}
+.switch input{width:18px;height:18px;accent-color:var(--accent)}
+.idx{display:flex;gap:6px;overflow-x:auto;padding-block:10px;border-block:1px solid var(--line);position:sticky;top:calc(env(safe-area-inset-top,0px) + 59px);background:var(--bg);z-index:4;scrollbar-width:thin}
+.idx button{flex:none;border:1px solid var(--line);background:none;border-radius:999px;padding:5px 12px;font-size:13px;color:var(--muted);white-space:nowrap}
+.idx button:hover{color:var(--ink);background:var(--surface)}
+.cs{padding-top:48px;scroll-margin-top:130px}
+.cs-head .kicker{display:block;margin-bottom:6px}
+.cs-head h2{font-size:34px}
+.cs-head p{color:var(--muted);margin:8px 0 0;max-width:40em}
+.pick{display:flex;gap:8px 18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:14px 0 18px}
+.pick b{color:var(--ink);font-weight:600}
+.pick a{color:var(--ink)}
+.rows{border-top:1px solid var(--line)}
+.row{border-bottom:1px solid var(--line)}
+.row-main{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;padding:14px 2px}
+.row-main input[type=checkbox]{width:20px;height:20px;margin:3px 0 0;accent-color:var(--accent);cursor:pointer}
+.row-head{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:start;text-align:left;background:none;border:0;padding:0;width:100%}
+.row-head .n{font-size:13px;color:var(--muted);padding-top:3px;font-variant-numeric:tabular-nums}
+.row-head .title{display:block;font:400 20px/1.25 var(--display)}
+.row-head .meta{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.row.done .title{text-decoration:line-through;text-decoration-color:var(--muted);color:var(--muted)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:190px}
+.tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);color:var(--muted);padding:2px 7px;border-radius:3px;white-space:nowrap}
+.tag.core{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tag.mine{border-color:var(--accent);color:var(--ink)}
+.detail{padding:4px 2px 22px 38px;color:var(--muted);font-size:15px}
+.detail p{margin:0 0 12px;max-width:44em}
+.detail .facts{display:grid;gap:6px;margin:12px 0;font-size:14px}
+.detail .facts b{color:var(--ink);font-weight:600}
+.detail .acts{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.small-btn{font-size:13px;font-weight:600;padding:8px 12px;border:1px solid var(--ink);border-radius:4px;background:none;text-decoration:none;color:var(--ink);display:inline-block}
+.small-btn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.small-btn:hover{background:var(--soft)}
+.small-btn.on:hover{background:var(--accent);filter:brightness(1.12)}
+.lecs{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:2px;max-width:46em}
+.lecs label{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;padding:5px 0;color:var(--ink);font-size:14px;cursor:pointer}
+.lecs input{margin:2px 0 0;width:16px;height:16px;accent-color:var(--accent)}
+.lecs a{color:var(--ink)}
+.grid-n{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px;max-width:46em;margin-top:10px}
+.grid-n label{display:flex;gap:5px;align-items:center;font-size:12px;border:1px solid var(--line);border-radius:4px;padding:4px 6px;color:var(--ink);cursor:pointer}
+.grid-n input{margin:0;accent-color:var(--accent)}
+.lec-h{font-size:13px;color:var(--ink);font-weight:600;margin-top:16px}
+textarea.note{width:100%;max-width:44em;min-height:120px;font:inherit;font-size:15px;line-height:1.5;padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);resize:vertical}
+.empty{padding:40px 0;color:var(--muted)}
+
+/* paths */
+.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:24px}
+.path{border:1px solid var(--line);border-radius:6px;padding:22px;background:var(--bg);min-width:0}
+.path h3{font-size:26px}
+.path p{color:var(--muted);margin:8px 0 12px;font-size:15px}
+.path ol{margin:0 0 16px;padding-left:20px;font-size:14px;color:var(--ink)}
+.path ol li{margin:2px 0}
+.path .grp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px}
+
+/* my path */
+.req{display:grid;gap:14px;margin-top:20px}
+.req-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:center}
+.req-row .nm{font-size:15px}
+.req-row .ct{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.mine-list{margin-top:8px}
+.mine-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.mine-item button.t{background:none;border:0;padding:0;text-align:left;font:400 19px/1.3 var(--display)}
+.mine-item .sub{font-size:13px;color:var(--muted)}
+.mine-item .bar{grid-column:1/-1}
+.danger{margin-top:40px;font-size:14px;color:var(--muted)}
+
+@media (max-width:720px){
+  .hero{padding-block:48px 40px}
+  .course-list,.paths{grid-template-columns:minmax(0,1fr)}
+  .row-head{grid-template-columns:28px minmax(0,1fr)}
+  .tags{grid-column:2;justify-content:flex-start;max-width:none}
+  .detail{padding-left:2px}
+  .idx{top:calc(env(safe-area-inset-top,0px) + 96px)}
+  .cs{scroll-margin-top:170px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="banner">Your progress saves in this browser only. Nothing is uploaded.</div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#home">The Open Psychology Degree</a>
+  <nav class="nav" aria-label="Main">
+    <a href="#curriculum" data-nav="curriculum">Curriculum</a>
+    <a href="#paths" data-nav="paths">Sample Paths</a>
+    <a href="#my-path" data-nav="my-path">My Path</a>
+    <a href="#about" data-nav="about">About</a>
+    <button type="button" id="theme" aria-label="Switch light or dark theme">Dark</button>
+  </nav>
+</div></header>
+<main id="view"></main>
+<footer><div class="wrap">
+  <span>Every class listed is free to watch or read. Structure inspired by <a href="https://study.philosophypublics.com/" target="_blank" rel="noopener">Philosophy for Independent Scholars</a>.</span>
+  <span>Progress is stored in this browser and cleared if you clear site data.</span>
+</div></footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- data ---------- */
+var YALE_LEC=["Introduction","Foundations: This Is Your Brain","Foundations: Freud","Foundations: Skinner","What Is It Like to Be a Baby: The Development of Thought","How Do We Communicate?: Language in the Brain, Mouth and the Hands","Conscious of the Present; Conscious of the Past: Language (cont.); Vision and Memory","Conscious of the Present; Conscious of the Past: Vision and Memory (cont.)","Evolution, Emotion, and Reason: Love (Guest Lecture by Professor Peter Salovey)","Evolution, Emotion, and Reason: Evolution and Rationality","Evolution, Emotion, and Reason: Emotions, Part I","Evolution, Emotion, and Reason: Emotions, Part II","Why Are People Different?: Differences","What Motivates Us: Sex","A Person in the World of People: Morality","A Person in the World of People: Self and Other, Part I","A Person in the World of People: Self and Other, Part II; Some Mysteries: Sleep, Dreams, and Laughter","What Happens When Things Go Wrong: Mental Illness, Part I (Guest Lecture by Professor Susan Nolen-Hoeksema)","What Happens When Things Go Wrong: Mental Illness, Part II","The Good Life: Happiness"];
+var MIT_LEC=["Introduction","Science & Research","Brain I: Structure and Functions","Brain II: Methods of Research","Vision I","Vision II","Consciousness","Attention","Memory I","Learning","Memory II: Amnesia and Memory Systems","Language","Thinking","Intelligence","Emotion & Motivation","Personality","Child Development","Adult Development","Stress","Psychopathology I","Psychopathology II","Social Psychology I","Social Psychology II","Conclusions: Evolutionary Psychology, Happiness"];
+var M913_LEC=["Lecture 1: Introduction","Lecture 2: Neuroanatomy","Lecture 4: Cognitive Neuroscience Methods I","Lecture 5: Cognitive Neuroscience Methods II","Lecture 6: Experimental Design","Lecture 7: Category Selectivity, Controversies, and Multiple Voxel Pattern Analysis","Lecture 8: Navigation I","Lecture 9: Navigation II","Lecture 10: Development, Nature & Nurture I","Lecture 11: Development, Nature & Nurture II (2018 recording)","Lecture 13: Number","Lecture 15: Hearing and Speech","Lecture 16: Music","Lecture 18: Language I","Lecture 20: Mentalizing and Theory of Mind","Lecture 21: Brain Networks","Lecture 23: Deep Networks (2021 video)","Lecture 24: Attention and Awareness"];
+var ANNEN_LEC=["Looking at Abnormal Behavior","The Nature of Stress","The Anxiety Disorders","Psychological Factors and Physical Illness","Personality Disorders","Substance Abuse Disorders","Sexual Disorders","Mood Disorders","The Schizophrenias","Organic Mental Disorders","Behavior Disorders of Childhood","Psychotherapies","An Ounce of Prevention"];
+var PSYSET_LEC=["Yale PSYC 110, Lecture 18: Mental Illness, Part I (Guest Lecture by Professor Susan Nolen-Hoeksema)","Yale PSYC 110, Lecture 19: Mental Illness, Part II","MIT 9.00SC: Stress","MIT 9.00SC: Psychopathology I","MIT 9.00SC: Psychopathology II"];
+
+var YALE="https://oyc.yale.edu/introduction-psychology/psyc-110";
+var M900="https://ocw.mit.edu/courses/9-00sc-introduction-to-psychology-fall-2011/";
+var M913="https://ocw.mit.edu/courses/9-13-the-human-brain-spring-2019/";
+var OC="https://www.openculture.com/psychology_free_courses";
+
+var SECTIONS=[
+{id:"s00",num:"00",name:"Start Here",blurb:"What the degree asks of you, how to read a psychology study, and a short orientation from Stanford.",need:3,
+ items:[
+ {id:"i-intent",kind:"activity",t:"Statement of Intent",by:"You",org:"Activity",fmt:"Activity",hrs:"20–30 min",free:"open",tag:"intro",note:"Write a few paragraphs on why you want to study psychology, which branches pull at you, and how many hours a week you can give it. Your words save in this browser only."},
+ {id:"i-study",kind:"steps",t:"How to Read a Psychology Study",by:"Reading guide",org:"Built into this site",fmt:"Reading",hrs:"About 30 min",free:"open",tag:"core",note:"Use these six steps on any study you meet in a lecture or textbook. Try them once on a paper you pick yourself.",
+  steps:["Read the abstract and write the study's claim in one sentence.","Find the sample: who took part, and how many.","Name the independent variable and the dependent variable.","Check whether people were randomly assigned to conditions.","Find the effect size, not only the p-value.","Write down one limit the authors name themselves."]},
+ {id:"i-think",t:"How to Think Like a Psychologist",by:"Several Stanford professors",org:"Stanford University",fmt:"Video",free:"open",tag:"intro",note:"A short orientation series from Stanford. Listed on Open Culture; the episode count was not checked.",q:"Stanford How to Think Like a Psychologist iTunes U video"}
+ ]},
+{id:"s01",num:"01",name:"Introduction to Psychology",blurb:"The whole field in one class. Pick several, since each teacher stresses different things.",need:5,book:{t:"OpenStax Psychology 2e",u:"https://openstax.org/details/books/psychology-2e"},
+ items:[
+ {id:"y110",t:"PSYC 110: Introduction to Psychology",by:"Paul Bloom",org:"Yale University",fmt:"Video",n:20,hrs:"About 18 hrs",free:"open",tag:"core",v:1,url:YALE,lec:YALE_LEC,lecUrl:"https://oyc.yale.edu/psychology/psyc-110/lecture-",note:"Recorded in Spring 2007. Brain, development, language, memory, emotion, morality, mental illness and happiness, taught as one story.",bk:{c:"Peter Gray, Psychology (Worth, 5th ed.), plus Gary Marcus, ed., The Norton Psychology Reader (2006). Both are listed on the course syllabus.",a:"Not free. Both are paid books, so look for used copies or a library loan. The lectures stand on their own without them.",f:"OpenStax Psychology 2e (free)",fu:"https://openstax.org/details/books/psychology-2e"}},
+ {id:"m900",t:"9.00SC: Introduction to Psychology",by:"John Gabrieli",org:"MIT OpenCourseWare",fmt:"Video",n:24,hrs:"About 20 hrs",free:"open",tag:"core",v:1,url:M900,lec:MIT_LEC,note:"Fall 2011. A neuroscience-forward survey with notes, three exams and solutions on the course page.",bk:{c:"Kosslyn and Rosenberg, the text MIT's class used.",a:"Not free, and OCW cannot post it. MIT links a free Creative Commons text by Stangor as the alternative, in the Open Textbook section of the course page.",f:"Stangor, Introduction to Psychology (free)",fu:M900}},
+ {id:"uhi",t:"Introduction to Psychology",by:"Richard Kasschau",org:"University of Houston",fmt:"Video",n:40,free:"open",tag:"core",note:"A full introductory course on YouTube. The lecture count (about 40) comes from a search listing and was not checked.",q:"Kasschau University of Houston Introduction to Psychology lectures YouTube",tb:"I could not find a syllabus or textbook for this series.",ta:"Nothing to buy. Use the free companion text."},
+ {id:"w900",t:"9.00: Introduction to Psychology",by:"Jeremy Wolfe",org:"MIT OpenCourseWare",fmt:"Audio",hrs:"About 23 hrs",free:"open",tag:"core",url:"https://ocw.mit.edu/courses/9-00-introduction-to-psychology-fall-2004/",note:"Fall 2004. Audio lectures, good for walks, with a readings page that pairs each lecture with textbook chapters and papers. The hours figure comes from a listing.",bk:{c:"Gleitman, Fridlund and Reisberg, Psychology, 6th ed. (Norton, 2004), ISBN 0393977676. The readings page assigns chapters to each lecture.",a:"Not free. It is a paid, older edition, so used copies are cheap and libraries often hold it. The course page lists the chapters.",f:"OpenStax Psychology 2e (free)",fu:"https://openstax.org/details/books/psychology-2e"}},
+ {id:"zimb",t:"Discovering Psychology",by:"Philip Zimbardo",org:"Stanford / Annenberg",fmt:"Video",free:"open",tag:"elective",note:"A documentary-style video series that covers the main topics in short programs. Episode list not checked.",q:"Discovering Psychology Philip Zimbardo video series",bk:{c:"Zimbardo, Johnson and others, Psychology: Core Concepts, Discovering Psychology Edition (Pearson), which adds a viewing guide at the end of each chapter.",a:"Not free. The book is paid; the current Pearson edition is the 8th (2021). The videos stand on their own.",f:"OpenStax Psychology 2e (free)",fu:"https://openstax.org/details/books/psychology-2e"}},
+ {id:"stey",t:"Psychology Fundamentals",by:"Mark Steyvers",org:"UC Irvine",fmt:"Video",free:"open",tag:"elective",note:"A university lecture course listed by Open Culture. Details not checked.",q:"Psychology Fundamentals Mark Steyvers UC Irvine"},
+ {id:"biola",t:"PSYC 200: Introduction to Psychology",by:"Biola University",org:"Biola University",fmt:"Video",n:29,free:"open",tag:"elective",note:"A 29-lecture YouTube series. Biola is a Christian university, so some framing may reflect that.",q:"Biola PSYC 200 Introduction to Psychology Fall 2013 YouTube"},
+ {id:"saylor",t:"PSYCH101: Introduction to Psychology",by:"Saylor Academy",org:"Saylor Academy",fmt:"Course",free:"open",tag:"elective",note:"A self-paced course with readings and a final exam. Saylor says it offers a free certificate of completion.",q:"Saylor Academy PSYCH101 Introduction to Psychology",bk:{c:"I could not confirm the required text. Saylor published Stangor's Introduction to Psychology, which is free online.",a:"Check the PSYCH101 syllabus on learn.saylor.org.",f:"Stangor, Introduction to Psychology (free)",fu:M900}},
+ {id:"tor",t:"Introduction to Psychology",by:"Steve Joordens",org:"University of Toronto (Coursera)",fmt:"MOOC",hrs:"About 23 hrs",free:"audit",tag:"elective",note:"A video course you can audit for free. Graded work and certificates cost money.",q:"Coursera Introduction to Psychology Steve Joordens Toronto"},
+ {id:"crash",t:"Crash Course Psychology",by:"Hank Green",org:"Crash Course",fmt:"Video",n:40,free:"open",tag:"intro",note:"Forty short episodes. Use it for a quick first pass before a full university class.",q:"Crash Course Psychology playlist Hank Green"}
+ ]},
+{id:"s02",num:"02",name:"Cognitive Psychology",blurb:"Perception, attention, memory, language, reasoning and decisions: how the mind processes information.",need:4,book:{t:"Cognition (Baylor open textbook)",u:"https://openbooks.library.baylor.edu/cognition"},
+ items:[
+ {id:"uhc",t:"Introduction to Cognitive Psychology",by:"Richard Kasschau",org:"University of Houston",fmt:"Video",n:26,hrs:"About 32 hrs",free:"open",tag:"core",note:"An information-processing course on memory, language, thought, judgment and skilled performance. Lecture titles are not listed on the pages I checked, so lectures are numbered.",q:"University of Houston PSYC 3350 Introduction to Cognitive Psychology Kasschau YouTube",tb:"I could not find a syllabus or textbook for this series.",ta:"Nothing to buy. Use the free companion text."},
+ {id:"m913",t:"9.13: The Human Brain",by:"Nancy Kanwisher",org:"MIT OpenCourseWare",fmt:"Video",n:18,free:"open",tag:"core",v:1,raw:1,url:M913,lec:M913_LEC,note:"Spring 2019. Cognitive neuroscience of perception, navigation, number, language and social thinking. Lectures 3, 12, 14, 17, 19, 22 and 25 were not recorded or are unavailable, so they are left out.",bk:{c:"No textbook. The course says the field moves too fast, so readings are journal papers, about two a week.",a:"The papers are listed on the OCW readings page. Many are behind journal paywalls; try a library or the authors' pages.",f:"Cognition (Baylor open textbook, free)",fu:"https://openbooks.library.baylor.edu/cognition"}},
+ {id:"lhtl",t:"Learning How to Learn",by:"Barbara Oakley and Terrence Sejnowski",org:"McMaster University and UCSD (Coursera)",fmt:"MOOC",free:"audit",tag:"core",note:"A practical course on memory, focus and study habits. Free to audit.",q:"Coursera Learning How to Learn Barbara Oakley",bk:{c:"Companion book: Barbara Oakley, A Mind for Numbers. The course does not require it.",a:"Not free. It is a paid book, but libraries lend the ebook through Libby and OverDrive, depending on your local library.",f:"Cognition (Baylor open textbook, free)",fu:"https://openbooks.library.baylor.edu/cognition"}},
+ {id:"m965",t:"9.65: Cognitive Processes",by:"Mary Potter and others",org:"MIT OpenCourseWare",fmt:"Course",free:"open",tag:"elective",note:"Archived MIT course pages. I did not confirm that lecture videos exist, so expect notes and readings.",q:"MIT OpenCourseWare 9.65 Cognitive Processes"},
+ {id:"schil",t:"Sensory Systems",by:"Peter Schiller",org:"MIT",fmt:"Video",free:"open",tag:"elective",note:"How vision and the other senses work in the brain. Listed on Open Culture.",q:"MIT Sensory Systems Peter Schiller video lectures"},
+ {id:"bmm",t:"Brains, Minds and Machines",by:"Tomaso Poggio and Gabriel Kreiman",org:"MIT",fmt:"Video",free:"open",tag:"elective",note:"Intelligence, vision and learning, with a computational lean.",q:"MIT Brains Minds and Machines Poggio Kreiman video course"},
+ {id:"hyman",t:"How to Think About Dubious Claims",by:"Ray Hyman",org:"University of Oregon",fmt:"Video",free:"open",tag:"intro",note:"A critical-thinking course about evaluating strange claims.",q:"Ray Hyman How to Think About Dubious Claims University of Oregon"},
+ {id:"set",t:"The Science of Everyday Thinking",by:"University of Queensland",org:"UQx (edX)",fmt:"MOOC",free:"audit",tag:"elective",note:"Reasoning, argument and decision-making for daily life. Free to audit; the certificate costs money.",q:"edX The Science of Everyday Thinking UQx"},
+ {id:"mem",t:"Understanding Memory: Explaining the Psychology of Memory through Movies",by:"Wesleyan University",org:"Wesleyan (Coursera)",fmt:"MOOC",free:"audit",tag:"elective",note:"Memory research taught through film clips. Free to audit.",q:"Coursera Understanding Memory Wesleyan movies"},
+ {id:"know",t:"Know Thyself: The Value and Limits of Self-Knowledge: The Unconscious",by:"University of Edinburgh",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"What we can and cannot know about our own minds. Free to audit. Confirm access first.",q:"Coursera Know Thyself The Unconscious University of Edinburgh"},
+ {id:"apadm",t:"Psychological Influences on Decision Making",by:"American Psychological Association",org:"edX",fmt:"MOOC",free:"audit",tag:"elective",note:"Biases, emotion and social factors in choices. Access terms not checked.",q:"edX Psychological Influences on Decision Making APA"},
+ {id:"camb",t:"Introduction to Cognitive Psychology and Neuropsychology",by:"University of Cambridge",org:"edX",fmt:"MOOC",free:"audit",tag:"elective",note:"Memory, attention, perception and language, with brain-injury cases. Access terms not checked.",q:"edX Introduction to Cognitive Psychology and Neuropsychology Cambridge"}
+ ]},
+{id:"s03",num:"03",name:"Social and Personality Psychology",blurb:"How people shape one another, and how individual differences, emotion and culture shape people.",need:4,book:{t:"Principles of Social Psychology (open textbook; check link)",u:"https://duckduckgo.com/?q=Principles+of+Social+Psychology+Jhangiani+Tarry+open+textbook"},
+ items:[
+ {id:"willer",t:"Social Psychology",by:"Robb Willer",org:"UC Berkeley",fmt:"Video",free:"open",tag:"core",note:"A Berkeley lecture course on conformity, persuasion, groups and attitudes. Listed on Open Culture.",q:"Robb Willer Social Psychology UC Berkeley video lectures"},
+ {id:"plous",t:"Social Psychology",by:"Scott Plous",org:"Wesleyan (Coursera)",fmt:"MOOC",free:"audit",tag:"core",url:"https://www.coursera.org/learn/social-psychology",note:"Decision making, persuasion, group behavior and attraction. Free to watch; graded work and certificate cost money.",bk:{c:"Plous uses a social psychology textbook by Myers in his Wesleyan course. Wesleyan reports they made large sections of two textbooks free to MOOC students. I could not confirm the titles.",a:"Check the Readings tab inside the course after you enroll.",f:"Principles of Social Psychology (open, check link)",fu:"https://duckduckgo.com/?q=Principles+of+Social+Psychology+Jhangiani+Tarry+open+textbook"}},
+ {id:"uhp",t:"Psychology of Personality",by:"Edward Sheridan",org:"University of Houston",fmt:"Video",n:23,hrs:"About 20 hrs",free:"open",tag:"core",note:"A full personality course on YouTube. Counts come from a listing and were not checked.",q:"Edward Sheridan Psychology of Personality University of Houston lectures",tb:"I could not find a syllabus or textbook for this series.",ta:"Nothing to buy. Use the free companion text."},
+ {id:"gruber",t:"Human Emotion",by:"June Gruber",org:"Yale University",fmt:"Course",free:"open",tag:"elective",note:"Emotion science from a Yale lab director. Listed as a free course on Open Culture.",q:"June Gruber Human Emotion Yale free course"},
+ {id:"mor",t:"Moralities of Everyday Life",by:"Paul Bloom",org:"Yale (Coursera)",fmt:"MOOC",free:"audit",tag:"elective",note:"Moral psychology: kindness, cruelty and fairness. Free to audit.",q:"Coursera Moralities of Everyday Life Yale"},
+ {id:"rel",t:"The Arts and Science of Relationships: Understanding Human Needs",by:"University of Toronto",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"What people need from each other. Free to audit.",q:"Coursera Arts and Science of Relationships Understanding Human Needs"},
+ {id:"karney",t:"Communication and Conflict in Families and Couples",by:"Benjamin Karney",org:"UCLA",fmt:"Video",free:"open",tag:"elective",note:"Close-relationship research from UCLA.",q:"Benjamin Karney Communication and Conflict in Families and Couples UCLA"},
+ {id:"cult",t:"Cultural Psychology",by:"Herb Agan",org:"University of Houston",fmt:"Video",free:"open",tag:"elective",note:"How culture shapes thought and behavior.",q:"Herb Agan Cultural Psychology University of Houston"},
+ {id:"gender",t:"Psychology of Gender",by:"Herb Agan",org:"University of Houston",fmt:"Video",free:"open",tag:"elective",note:"Gender and behavior across research areas.",q:"Herb Agan Psychology of Gender University of Houston"},
+ {id:"env",t:"Environmental Psychology",by:"Daniel Stokols",org:"UC Irvine",fmt:"Video",free:"open",tag:"elective",note:"How places and surroundings shape people.",q:"Daniel Stokols Environmental Psychology UC Irvine"},
+ {id:"pet",t:"Personality and Its Transformations",by:"Jordan Peterson",org:"University of Toronto",fmt:"Video",free:"open",tag:"elective",note:"2016 and 2017 lecture series. Peterson is a divisive figure and the course mixes research with his own views, so read it critically.",q:"Jordan Peterson Personality and Its Transformations lectures",tb:"A course reader, Personality and Its Transformations: Selected Readings (1998), appears to go with it. I could not confirm that or see its contents.",ta:"Availability not checked. Try a library."},
+ {id:"jindal",t:"Psychology of Personality",by:"O.P. Jindal Global University",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",url:"https://www.coursera.org/learn/psychology-of-personality1",note:"Theories of personality. Free to watch; graded work costs money."}
+ ]},
+{id:"s04",num:"04",name:"Abnormal and Clinical Psychology",blurb:"Mental disorders, how they are classified and explained, and how they are treated.",need:4,book:{t:"Fundamentals of Psychological Disorders (free)",u:"https://open.umn.edu/opentextbooks/textbooks/890"},
+ items:[
+ {id:"annen",t:"The World of Abnormal Psychology",by:"Annenberg series",org:"Annenberg Learner",fmt:"Video",n:13,free:"open",tag:"core",lec:ANNEN_LEC,note:"Thirteen programs from 1992, so the language and diagnostic thinking are dated. Read them next to a current textbook. Titles come from secondary listings.",q:"Annenberg Learner The World of Abnormal Psychology",bk:{c:"Print guides from the 1990s are mentioned in library listings: a Study Guide (Allyn and Bacon, 3rd ed., 1999) and a Faculty Guide (HarperCollins, 2nd ed., 1996). I could not confirm their contents.",a:"Likely out of print. Use a current free text instead.",f:"Fundamentals of Psychological Disorders (free)",fu:"https://open.umn.edu/opentextbooks/textbooks/890"}},
+ {id:"uhcl",t:"Introduction to Clinical Psychology",by:"Edward Sheridan",org:"University of Houston",fmt:"Video",free:"open",tag:"core",note:"A lecture course on clinical problems and treatments. Listed on Open Culture.",q:"Edward Sheridan Introduction to Clinical Psychology University of Houston",tb:"I could not find a syllabus or textbook for this series.",ta:"Nothing to buy. Use the free companion text."},
+ {id:"psyset",t:"Psychopathology lectures from two intro courses",by:"Yale and MIT",org:"Yale and MIT",fmt:"Video",n:5,free:"open",tag:"core",v:1,raw:1,lec:PSYSET_LEC,note:"The mental-illness and stress lectures pulled out of the Yale and MIT introductions above. A short, checked set."},
+ {id:"abyt",t:"Abnormal Psychology lecture series",by:"YouTube university series",org:"YouTube",fmt:"Video",hrs:"About 9 hrs",free:"open",tag:"elective",note:"History of mental illness, perspectives on abnormal behavior, stress-related, dissociative and depressive disorders. Source and completeness not checked.",q:"abnormal psychology lecture series history of mental illness dissociative depressive disorders university"},
+ {id:"cabn",t:"Introduction to Abnormal Psychology",by:"Coursera",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Lectures on models of abnormality, assessment and diagnosis, trauma, schizophrenia and treatment. I did not confirm the provider. Free to audit if offered.",q:"Coursera Introduction to Abnormal Psychology"},
+ {id:"uqx",t:"Introduction to Clinical Psychology",by:"University of Queensland",org:"UQx (edX)",fmt:"MOOC",free:"audit",tag:"elective",note:"Free to audit for a limited time. Certificates cost money.",q:"edX Introduction to Clinical Psychology UQx"},
+ {id:"dep",t:"The New Psychology of Depression",by:"Mark Williams and Danny Penman",org:"University of Oxford",fmt:"Audio",free:"open",tag:"elective",note:"An Oxford audio series on depression and mindfulness-based approaches.",q:"Mark Williams Danny Penman New Psychology of Depression Oxford audio"},
+ {id:"bent",t:"Hallucinations",by:"Richard Bentall",org:"University of Liverpool",fmt:"Video",free:"open",tag:"elective",note:"A narrow, in-depth look at hearing voices and psychosis.",q:"Richard Bentall Hallucinations University of Liverpool lecture"},
+ {id:"myths",t:"Nine Myths About Schizophrenia",by:"Richard Bentall",org:"University of Liverpool",fmt:"Video",free:"open",tag:"intro",note:"A single short talk.",q:"Richard Bentall Nine Myths About Schizophrenia"},
+ {id:"pfa",t:"Psychological First Aid",by:"Johns Hopkins University",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Supporting people in a crisis. Free to audit.",q:"Coursera Psychological First Aid Johns Hopkins"},
+ {id:"posps",t:"Positive Psychiatry and Mental Health",by:"University of Sydney",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Mental health with an emphasis on strengths and recovery. Free to audit.",q:"Coursera Positive Psychiatry and Mental Health Sydney"}
+ ]},
+{id:"s05",num:"05",name:"Mind, Religion and Consciousness",blurb:"Meaning, belief, contemplative practice and the science of consciousness. Psychology next to philosophy, religion and the brain.",need:0,book:{t:"William James, The Varieties of Religious Experience (public domain; find a free copy)",u:"https://duckduckgo.com/?q=Varieties+of+Religious+Experience+William+James+full+text+free"},
+ items:[
+ {id:"vmc",t:"Awakening from the Meaning Crisis",by:"John Vervaeke",org:"University of Toronto",fmt:"Video",n:50,free:"open",tag:"core",url:"https://www.youtube.com/playlist?list=PLND1JCRq8VujfYQ-00pT-6pTOm4q-rz1c",note:"A 50-episode lecture series on how Western thought lost its sense of meaning, drawing on cognitive science, Buddhism, Plato and Christianity. It is also a podcast.",tb:"I found no textbook for this series.",ta:"Nothing to buy. The episodes are free on YouTube."},
+ {id:"bud",t:"Buddhism and Modern Psychology",by:"Robert Wright",org:"Princeton (Coursera)",fmt:"MOOC",free:"audit",tag:"core",note:"Buddhist ideas on the self, mind and meditation, tested against evolutionary psychology. Coursera lists all features as free with no certificate. It may be unavailable, so check enrollment.",q:"Coursera Buddhism and Modern Psychology Robert Wright Princeton",tb:"No textbook required. Readings are inside the course.",ta:"Included with the course."},
+ {id:"gend",t:"PHIL 181: Philosophy and the Science of Human Nature",by:"Tamar Gendler",org:"Yale (Open Yale Courses)",fmt:"Video",n:26,free:"open",tag:"core",url:"https://oyc.yale.edu/philosophy/phil-181",note:"Twenty-six lectures, Spring 2011, pairing Plato, Aristotle, Hobbes, Kant and Freud with psychology and cognitive science on reason, desire and the self.",bk:{c:"No single textbook. Readings include Freud's The Ego and the Id, The Elements of Philosophy (Gendler, Siegel and Cahn, eds.), Homer's Iliad and journal articles.",a:"The lectures, transcripts and weekly reading guides are free on Open Yale Courses. The books are paid; check a library.",f:"Open Yale reading guides",fu:"https://oyc.yale.edu/philosophy/phil-181"}},
+ {id:"verv",t:"Buddhism and Cognitive Science",by:"John Vervaeke",org:"University of Toronto",fmt:"Video",free:"open",tag:"elective",note:"A lecture series linking contemplative traditions and cognitive science.",q:"John Vervaeke Buddhism and Cognitive Science lectures"},
+ {id:"pr",t:"Psychology and Religion",by:"Jordan Peterson",org:"University of Toronto",fmt:"Video",free:"open",tag:"elective",note:"Lectures that blend psychology with myth and religion. I did not confirm the contents or whether it is still hosted. Read critically.",q:"Jordan Peterson Psychology and Religion lectures"},
+ {id:"mom",t:"Maps of Meaning: The Architecture of Belief (2017)",by:"Jordan Peterson",org:"University of Toronto",fmt:"Video",free:"open",tag:"elective",note:"A lecture series on myth, belief and personality, built on Jung and others. Peterson is a divisive figure, so read it critically.",tb:"Peterson's book Maps of Meaning (Routledge, 1999) is the source. I did not confirm it is the assigned text.",ta:"Paid book. No free copy found.",q:"Jordan Peterson Maps of Meaning Architecture of Belief 2017 lectures"},
+ {id:"ol",t:"Introducing Consciousness",by:"The Open University",org:"OpenLearn",fmt:"Course",free:"open",tag:"core",url:"https://www.open.edu/openlearn/history-the-arts/philosophy/introducing-consciousness/content-section-0",note:"A free course on what consciousness is and why it is hard for science and philosophy.",tb:"No textbook. The course text is on the page.",ta:"Free on OpenLearn."},
+ {id:"kih",t:"Scientific Approaches to Consciousness",by:"John Kihlstrom",org:"UC Berkeley",fmt:"Video",free:"open",tag:"elective",url:"https://www.ocf.berkeley.edu/~jfkihlstrom/ConsciousnessWeb/index.htm",note:"Spring 2013 lectures. The page was last revised in 2022, so the material may be dated.",tb:"Kihlstrom says he would now choose Trevor Harley, The Science of Consciousness, as the text.",ta:"That book is paid. His lecture pages are free."},
+ {id:"seth",t:"The Neuroscience of Consciousness",by:"Anil Seth",org:"Sussex (YouTube)",fmt:"Video",free:"open",tag:"elective",note:"A course on the current science of consciousness. The hosting source was not confirmed.",q:"Anil Seth The Neuroscience of Consciousness course YouTube"},
+ {id:"kochc",t:"The Biology of Consciousness",by:"Christof Koch",org:"Caltech / World Science U",fmt:"Video",free:"open",tag:"elective",note:"What neuroscience says about consciousness.",q:"Christof Koch The Biology of Consciousness World Science U"},
+ {id:"mele",t:"Free Will and Neuroscience",by:"Alfred Mele",org:"Florida State / World Science U",fmt:"Video",free:"open",tag:"elective",note:"What brain research does and does not say about free will.",q:"Alfred Mele Free Will and Neuroscience World Science U"},
+ {id:"mind",t:"De-Mystifying Mindfulness",by:"Chris Goto-Jones",org:"Leiden University (Coursera)",fmt:"MOOC",free:"audit",tag:"elective",note:"Mindfulness across history and science. Free to audit.",q:"Coursera De-Mystifying Mindfulness Leiden",tb:"No textbook required. Readings are inside the course.",ta:"Included with the course."},
+ {id:"mm",t:"Minds and Machines (24.09x)",by:"MITx",org:"MIT (edX)",fmt:"MOOC",free:"audit",tag:"elective",url:"https://learn.mit.edu/courses/course-v1:MITxT+24.09x",note:"Includes the question \"Can there be a science of consciousness?\" The free audit is listed; the certificate deadline has passed.",tb:"No textbook required. Readings are inside the course.",ta:"Included with the course."},
+ {id:"phrel",t:"Philosophy of Religion (Phil 131)",by:"Matt McCormick",org:"Sacramento State",fmt:"Video",n:31,free:"open",tag:"elective",note:"Thirty-one lectures. This is philosophy rather than psychology, but it frames the questions the psychology of religion asks.",q:"Matt McCormick Philosophy of Religion Phil 131 Sacramento State lectures"},
+ {id:"nutt",t:"The Science of Psychedelics",by:"David Nutt",org:"Imperial College London",fmt:"Video",free:"open",tag:"elective",note:"A lecture on research into psychedelic drugs and the mind.",q:"David Nutt The Science of Psychedelics lecture"}
+ ]},
+{id:"s06",num:"06",name:"History of Psychology",blurb:"How the field began, split into schools and arrived at where it is now. A thin shelf; the best full course here is a Basel lecture.",need:0,book:{t:"OpenStax Psychology 2e, Chapter 1 (history)",u:"https://openstax.org/details/books/psychology-2e"},
+ items:[
+ {id:"hbasel",t:"History of Psychology",by:"University of Basel",org:"University of Basel",fmt:"Course",free:"open",tag:"core",url:"https://tales.nmc.unibas.ch/en/history-of-psychology-26/",note:"An online lecture that maps the schools of psychology from the 19th century to today, with videos, articles and books. Updated January 2025. Basel students get a forum; the public page looks open.",tb:"No textbook. The page links its own readings.",ta:"Free to read on the page."},
+ {id:"hcosmo",t:"History and Systems of Psychology",by:"Cosmolearning",org:"Cosmolearning",fmt:"Video",n:45,free:"open",tag:"core",note:"Forty-five video lectures starting with the ancient Greeks. I found the listing but could not open it, so confirm it is still online.",q:"Cosmolearning History & Systems of Psychology video lectures"},
+ {id:"hy34",t:"Foundations: Freud and Skinner",by:"Paul Bloom",org:"Yale University",fmt:"Video",n:2,free:"open",tag:"core",v:1,raw:1,url:"https://oyc.yale.edu/psychology/psyc-110/lecture-3",lec:["Yale PSYC 110, Lecture 3: Foundations: Freud","Yale PSYC 110, Lecture 4: Foundations: Skinner"],lecUrl:"https://oyc.yale.edu/psychology/psyc-110/lecture-",lecOffset:2,note:"Two lectures from the Yale class above, on psychoanalysis and behaviorism."},
+ {id:"hol",t:"Investigating Psychology",by:"The Open University",org:"OpenLearn",fmt:"Course",free:"open",tag:"elective",url:"https://www.open.edu/openlearn/health-sports-psychology/investigating-psychology",note:"A free introduction to the field's history and core questions.",tb:"No textbook. The course text is on the page.",ta:"Free on OpenLearn."},
+ {id:"hsim",t:"History of Psychology lecture notes",by:"Dean Keith Simonton",org:"UC Davis",fmt:"Reading",free:"open",tag:"elective",url:"https://simonton.faculty.ucdavis.edu/?p=680",note:"Notes and slides for every lecture of a history course. Some items are omitted. Reading only, no video.",tb:"The course used its own textbook. I did not confirm which one.",ta:"The notes are free. The textbook is unknown."},
+ {id:"hsay",t:"More on the History of Psychology",by:"Saylor Academy",org:"Saylor Academy",fmt:"Reading",free:"open",tag:"intro",url:"https://learn.saylor.org/mod/page/view.php?id=61846",note:"A short module that links two YouTube videos on the history of psychology.",tb:"No textbook.",ta:"Free on Saylor."},
+ {id:"hyt",t:"Psychology: History and Approaches",by:"YouTube tutorial",org:"YouTube",fmt:"Video",hrs:"About 30 min",free:"open",tag:"intro",note:"A 30-minute overview of the field's history and main approaches. Source not confirmed.",q:"Psychology History and Approaches 30 minute tutorial foundations of psychology"}
+ ]},
+{id:"s07",num:"07",name:"Applied Psychology",blurb:"Psychology applied to work, health, food, the law and markets.",need:0,
+ items:[
+ {id:"io",t:"Industrial/Organizational Psychology",by:"Lynda Villanueva",org:"University of Houston",fmt:"Video",free:"open",tag:"core",note:"Psychology of work, hiring and organizations.",q:"Lynda Villanueva Industrial Organizational Psychology University of Houston"},
+ {id:"hp",t:"Health Psychology",by:"Mrinmoyi Kulkarni",org:"IIT",fmt:"Video",free:"open",tag:"core",note:"Behavior, stress and illness.",q:"Health Psychology Mrinmoyi Kulkarni IIT video lectures"},
+ {id:"for",t:"Forensic Psychology",by:"The Open University",org:"OpenLearn",fmt:"Course",hrs:"7+ hrs",free:"open",tag:"core",note:"A free OpenLearn course on psychology in the justice system.",tb:"No textbook. The course text is on the page.",ta:"Free on OpenLearn.",q:"OpenLearn Forensic Psychology Open University free course"},
+ {id:"food",t:"The Psychology, Biology and Politics of Food",by:"Kelly Brownell",org:"Yale University",fmt:"Video",free:"open",tag:"elective",note:"Eating, obesity and food policy. A 2024 lecture playlist is listed.",q:"Kelly Brownell Psychology Biology and Politics of Food Yale lectures"},
+ {id:"cons",t:"An Introduction to Consumer Neuroscience and Neuromarketing",by:"University of Copenhagen",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Free to audit.",q:"Coursera Introduction to Consumer Neuroscience and Neuromarketing Copenhagen"}
+ ]},
+{id:"s08",num:"08",name:"Brain and Behavior",blurb:"Optional. Neuroscience and biology for the mind. Take it or leave it.",need:0,book:{t:"Noba Project (free modules)",u:"https://noba.to"},
+ items:[
+ {id:"sap",t:"Human Behavioral Biology",by:"Robert Sapolsky",org:"Stanford University",fmt:"Video",n:25,hrs:"About 36 hrs",free:"open",tag:"core",note:"Genes, evolution, hormones, aggression, language and schizophrenia. The 2010 course has 25 lectures; a newer 2024 edition is reported to have 32.",tb:"No required reading found on the syllabus. Sapolsky's book Behave is related but I found nothing saying it is assigned.",ta:"Behave is a paid book; try a library.",q:"Robert Sapolsky Human Behavioral Biology Stanford YouTube"},
+ {id:"suz",t:"Brain and Behavior",by:"Wendy Suzuki",org:"NYU",fmt:"Video",free:"open",tag:"core",note:"An introductory neuroscience course. Listed on Open Culture.",q:"Wendy Suzuki Brain and Behavior NYU lectures"},
+ {id:"sch1",t:"Neuroscience and Behavior",by:"Gerald Schneider",org:"MIT",fmt:"Audio",free:"open",tag:"elective",note:"Audio lectures on how the nervous system produces behavior.",q:"Gerald Schneider MIT Neuroscience and Behavior audio"},
+ {id:"sch2",t:"Brain Structure and Its Origins",by:"Gerald Schneider",org:"MIT",fmt:"Audio",free:"open",tag:"elective",note:"Evolution and anatomy of the brain.",q:"Gerald Schneider MIT Brain Structure and Its Origins"},
+ {id:"sch3",t:"Animal Behavior",by:"Gerald Schneider",org:"MIT",fmt:"Audio",free:"open",tag:"elective",note:"Behavior across species.",q:"Gerald Schneider MIT Animal Behavior audio"},
+ {id:"kochn",t:"The Neuronal Basis of Psychology",by:"Christof Koch",org:"Caltech",fmt:"Video",free:"open",tag:"elective",note:"Neuroscience for psychology students.",q:"Christof Koch The Neuronal Basis of Psychology"},
+ {id:"kochr",t:"Coding and Vision I",by:"Christof Koch and R. Clay Reid",org:"Allen Institute",fmt:"Video",free:"open",tag:"elective",note:"How the visual system encodes the world.",q:"Koch Reid Coding and Vision I Allen Institute"},
+ {id:"ucla",t:"Behavioral Neuroscience Laboratory",by:"William Grisham",org:"UCLA",fmt:"Video",free:"open",tag:"elective",note:"Lab methods in behavioral neuroscience.",q:"William Grisham Behavioral Neuroscience Laboratory UCLA"},
+ {id:"vand",t:"Big Brains, Small Brains",by:"Vanderbilt faculty",org:"Vanderbilt / World Science U",fmt:"Video",free:"open",tag:"elective",note:"Comparative brain evolution.",q:"Big Brains Small Brains Vanderbilt World Science U"},
+ {id:"nico",t:"Brain Machine Interfaces",by:"Miguel Nicolelis",org:"Duke / World Science U",fmt:"Video",free:"open",tag:"elective",note:"Linking brains and machines.",q:"Miguel Nicolelis Brain Machine Interfaces World Science U"},
+ {id:"uchi",t:"Understanding the Brain: The Neurobiology of Everyday Life",by:"University of Chicago",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Free to audit.",q:"Coursera Understanding the Brain Neurobiology of Everyday Life Chicago"},
+ {id:"duke",t:"Medical Neuroscience",by:"Duke University",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"A demanding, medical-school-level course. Free to audit.",q:"Coursera Medical Neuroscience Duke"},
+ {id:"hebr",t:"Synapses, Neurons and Brains",by:"Hebrew University",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Neurons and computation, with some math. Free to audit.",q:"Coursera Synapses Neurons and Brains Hebrew University"}
+ ]},
+{id:"s09",num:"09",name:"Positive Psychology and Well-Being",blurb:"Elective. The science of flourishing, resilience and a good life.",need:0,
+ items:[
+ {id:"wb",t:"The Science of Well-Being",by:"Laurie Santos",org:"Yale (Coursera)",fmt:"MOOC",free:"audit",tag:"core",note:"Free to audit.",q:"Coursera The Science of Well-Being Laurie Santos Yale"},
+ {id:"up1",t:"The Foundations of Positive Psychology",by:"Martin Seligman and others",org:"University of Pennsylvania",fmt:"MOOC",free:"audit",tag:"elective",note:"Free to audit.",q:"Coursera Foundations of Positive Psychology University of Pennsylvania"},
+ {id:"up2",t:"Positive Psychology: Martin E. P. Seligman's Visionary Science",by:"Martin Seligman",org:"University of Pennsylvania",fmt:"MOOC",free:"audit",tag:"elective",note:"Free to audit.",q:"Coursera Positive Psychology Martin Seligman Visionary Science"},
+ {id:"up3",t:"Positive Psychology: Resilience Skills",by:"University of Pennsylvania",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Free to audit.",q:"Coursera Positive Psychology Resilience Skills Penn"},
+ {id:"unc",t:"Positive Psychology",by:"UNC Chapel Hill",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Free to audit.",q:"Coursera Positive Psychology UNC Chapel Hill"},
+ {id:"tbs",t:"Positive Psychology",by:"Tal Ben-Shahar",org:"Harvard University",fmt:"Video",free:"open",tag:"elective",note:"A Harvard lecture series on happiness.",q:"Tal Ben-Shahar Positive Psychology Harvard lectures"},
+ {id:"isb",t:"A Life of Happiness and Fulfillment",by:"Indian School of Business",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"Free to audit.",q:"Coursera A Life of Happiness and Fulfillment Indian School of Business"}
+ ]},
+{id:"s10",num:"10",name:"Development",blurb:"Elective. How minds grow from infancy to old age. A thin shelf.",need:0,book:{t:"OpenStax Psychology 2e, Chapter 9 (lifespan development)",u:"https://openstax.org/details/books/psychology-2e"},
+ items:[
+ {id:"par",t:"Everyday Parenting: The ABCs of Child Rearing",by:"Alan Kazdin",org:"Yale (Coursera)",fmt:"MOOC",free:"audit",tag:"core",note:"Child behavior and development through parenting. Free to audit.",q:"Coursera Everyday Parenting ABCs of Child Rearing Yale",tb:"No textbook required. Readings are inside the course.",ta:"Included with the course."},
+ {id:"devset",t:"Development lectures from two intro courses",by:"Yale and MIT",org:"Yale and MIT",fmt:"Video",n:3,free:"open",tag:"core",v:1,raw:1,lec:["Yale PSYC 110, Lecture 5: What Is It Like to Be a Baby: The Development of Thought","MIT 9.00SC: Child Development","MIT 9.00SC: Adult Development"],note:"Infant thought, child development and adult development, pulled out of the Yale and MIT introductions above. A short, checked set."}
+ ]},
+{id:"s11",num:"11",name:"Research Methods and Statistics",blurb:"Elective, but needed if you want to judge studies for yourself. Free access on these was not confirmed.",need:0,book:{t:"Research Methods in Psychology (open textbook; check link)",u:"https://duckduckgo.com/?q=Research+Methods+in+Psychology+open+textbook"},
+ items:[
+ {id:"st1",t:"Statistics in Psychological Research",by:"American Psychological Association",org:"Coursera",fmt:"MOOC",free:"audit",tag:"core",note:"Aimed at first- and second-year psychology students. Free access not confirmed, so check before you start.",q:"Coursera Statistics in Psychological Research APA",tb:"No textbook required. Readings are inside the course.",ta:"Included with the course."},
+ {id:"st2",t:"Basic Inferential Statistics for Psychology",by:"American Psychological Association",org:"Coursera",fmt:"MOOC",free:"audit",tag:"elective",note:"z-tests, t-tests and chi-square. Free access not confirmed.",q:"Coursera Basic Inferential Statistics for Psychology APA",tb:"No textbook required. Readings are inside the course.",ta:"Included with the course."},
+ {id:"rm",t:"Introduction to Psychological Research Methods",by:"edX",org:"edX",fmt:"MOOC",free:"audit",tag:"elective",note:"Provider and access not confirmed. Check before you start.",q:"edX Introduction to Psychological Research Methods"}
+ ]},
+{id:"s12",num:"12",name:"Free Textbooks",blurb:"Read these beside the lectures. Each section above links to its companion book.",need:2,
+ items:[
+ {id:"osx",kind:"book",t:"Psychology 2e",by:"OpenStax",org:"Rice University",fmt:"Textbook",free:"open",tag:"core",url:"https://openstax.org/details/books/psychology-2e",note:"A full introductory textbook in 16 chapters, free online as web view or PDF."},
+ {id:"noba",kind:"book",t:"Noba Project",by:"Noba",org:"Diener Education Fund",fmt:"Textbook",free:"open",tag:"core",url:"https://noba.to",note:"Short modules written by researchers across every area of psychology."},
+ {id:"stang",kind:"book",t:"Introduction to Psychology",by:"Charles Stangor",org:"Saylor Foundation",fmt:"Textbook",free:"open",tag:"elective",url:M900,note:"The Creative Commons text MIT points to in place of the paid Kosslyn and Rosenberg book. Linked from the MIT 9.00SC page."},
+ {id:"fpd",kind:"book",t:"Fundamentals of Psychological Disorders",by:"Alexis Bridley and Lee Daffin Jr.",org:"Washington State University",fmt:"Textbook",free:"open",tag:"core",url:"https://open.umn.edu/opentextbooks/textbooks/890",note:"The companion for the abnormal psychology section. Reviewers report it follows DSM-5-TR."},
+ {id:"bay",kind:"book",t:"Cognition: An Aggregated Open Textbook",by:"Baylor University Libraries",org:"Baylor University",fmt:"Textbook",free:"open",tag:"core",url:"https://openbooks.library.baylor.edu/cognition",note:"A cognition text assembled from open sources, licensed CC BY-NC-SA."},
+ {id:"pil",kind:"book",t:"Cognitive Foundations",by:"C. Pilegard",org:"Open textbook",fmt:"Textbook",free:"open",tag:"elective",url:"https://bookdown.org/pilegard/cogfoundations",note:"A second open cognitive psychology text, as a web book."},
+ {id:"soc",kind:"book",t:"Principles of Social Psychology",by:"Jhangiani and Tarry",org:"Open textbook",fmt:"Textbook",free:"open",tag:"elective",q:"Principles of Social Psychology Jhangiani Tarry open textbook",note:"The open social psychology text. I did not open it, so check the link."},
+ {id:"rmb",kind:"book",t:"Research Methods in Psychology",by:"Open textbook",org:"Open textbook",fmt:"Textbook",free:"open",tag:"elective",q:"Research Methods in Psychology open textbook free",note:"An open methods text. I did not open it, so check the link."}
+ ]},
+{id:"s13",num:"13",name:"Capstone",blurb:"Write and keep a short essay that ties two branches together.",need:1,
+ items:[
+ {id:"cap1",kind:"activity",t:"Capstone essay",by:"You",org:"Activity",fmt:"Activity",hrs:"10+ hrs",free:"open",tag:"core",note:"Pick one question that crosses two branches (for example, how memory errors affect eyewitness evidence, or how social context shapes depression). Draft 1,500 to 2,500 words, citing at least one lecture and one reading. Draft here."},
+ {id:"cap2",kind:"activity",t:"Get a reader",by:"You",org:"Activity",fmt:"Activity",hrs:"1 hr",free:"open",tag:"elective",note:"Give the essay to one friend and write down what they did not understand. Note it here and revise."}
+ ]}
+];
+
+var REQS=[
+ {n:"Start Here",s:["s00"],need:3},
+ {n:"Introduction to Psychology",s:["s01"],need:5},
+ {n:"Cognitive Psychology",s:["s02"],need:4},
+ {n:"Social and Personality",s:["s03"],need:4},
+ {n:"Abnormal and Clinical",s:["s04"],need:4},
+ {n:"Electives (sections 05 to 11)",s:["s05","s06","s07","s08","s09","s10","s11"],need:4},
+ {n:"Free textbooks",s:["s12"],need:2},
+ {n:"Capstone",s:["s13"],need:1}
+];
+
+var PATHS=[
+ {name:"The Full B.A.",who:"The whole degree, with breadth in every branch.",ids:{"Start":["i-intent","i-study"],"Introduction":["y110","m900","uhi","tor","crash"],"Cognitive":["uhc","m913","lhtl","mem"],"Social and Personality":["willer","plous","uhp","gruber"],"Abnormal and Clinical":["annen","uhcl","psyset","pfa"],"Electives":["sap","wb","for","st1"],"Textbooks":["osx","fpd"],"Capstone":["cap1"]}},
+ {name:"Clinical Track",who:"For people drawn to mental health, therapy and why minds break down.",ids:{"Start":["i-intent","i-study"],"Introduction":["y110","m900","uhi","crash","tor"],"Cognitive":["uhc","lhtl","mem","set"],"Social and Personality":["uhp","gruber","plous","rel"],"Abnormal and Clinical":["annen","uhcl","psyset","dep","pfa","bent"],"Electives":["sap","wb","mind","par"],"Textbooks":["osx","fpd"],"Capstone":["cap1"]}},
+ {name:"Mind and Brain Track",who:"For people who want the science of perception, memory and the brain.",ids:{"Start":["i-intent","i-study","i-think"],"Introduction":["m900","y110","uhi","w900","tor"],"Cognitive":["uhc","m913","schil","bmm","m965"],"Social and Personality":["willer","uhp","gruber","mor"],"Abnormal and Clinical":["psyset","annen","uhcl","bent"],"Electives":["sap","suz","kochn","st1"],"Textbooks":["osx","bay"],"Capstone":["cap1"]}},
+ {name:"Light and Listening",who:"For slow weeks: audio, short talks and one anchor course. No pressure.",ids:{"Start":["i-intent"],"Introduction":["w900","crash","zimb","y110","stey"],"Cognitive":["hyman","lhtl","mem","set"],"Social and Personality":["willer","gruber","mor","karney"],"Abnormal and Clinical":["dep","myths","psyset","annen"],"Electives":["wb","sch1","tbs","bud"],"Textbooks":["noba"],"Capstone":["cap1"]}}
+];
+
+/* ---------- state ---------- */
+var KEY="open-psychology-roadmap-v1", TKEY="open-psychology-theme";
+var S={chosen:{},done:{},lec:{},notes:{},steps:{}};
+try{var raw=localStorage.getItem(KEY); if(raw){var p=JSON.parse(raw); for(var k in S){ if(p&&p[k]) S[k]=p[k]; }}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+var OPEN={}, query="", coreOnly=false, pendingScroll=null, resetArmed=false;
+
+var BYID={}, SECOF={};
+SECTIONS.forEach(function(sec){sec.items.forEach(function(c){BYID[c.id]=c;SECOF[c.id]=sec;});});
+var TOTAL=SECTIONS.reduce(function(a,s){return a+s.items.length;},0);
+
+/* ---------- helpers ---------- */
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m];});}
+function srch(q){return "https://duckduckgo.com/?q="+encodeURIComponent(q);}
+function link(c){return c.url?{u:c.url,l:"Open the class",v:1}:(c.q?{u:srch(c.q),l:"Find this class",v:0}:null);}
+function total(c){return c.steps?c.steps.length:(c.lec?c.lec.length:(c.n||0));}
+function ticked(c){
+  if(c.steps){var s=S.steps[c.id]||{},n=0;for(var i=0;i<c.steps.length;i++) if(s[i]) n++; return n;}
+  var l=S.lec[c.id]||{},m=0;for(var k in l) if(l[k]) m++; return m;
+}
+function pct(c){var t=total(c); if(!t) return S.done[c.id]?100:0; return Math.round(100*ticked(c)/t);}
+function pad(n){return n<10?"0"+n:""+n;}
+function doneCount(ids){var n=0;ids.forEach(function(id){if(S.done[id]) n++;});return n;}
+function secItems(ids){var a=[];ids.forEach(function(sid){SECTIONS.forEach(function(s){if(s.id===sid) a=a.concat(s.items);});});return a;}
+
+/* ---------- views ---------- */
+var view=document.getElementById("view");
+
+function homeView(){
+  var rows=SECTIONS.map(function(s){
+    return '<button type="button" data-act="go-sec" data-sec="'+s.id+'"><span class="num">'+s.num+'</span><span><h3>'+esc(s.name)+'</h3></span><p>'+esc(s.blurb)+'</p><span class="cnt">'+s.items.length+(s.items.length===1?" resource":" resources")+'</span></button>';
+  }).join("");
+  var reqs=REQS.map(function(r){return '<li><b>'+esc(r.n)+':</b> '+(r.need?'finish '+r.need:'optional')+'</li>';}).join("");
+  return '<div class="wrap"><section class="hero"><h1>Study Psychology, <em>Tuition Free</em></h1>'
+  +'<p>A self-directed course of study from first principles to the clinic, built from lectures that are already free: recorded university classes, open courses and audio series. Choose your classes. Skip the rest.</p>'
+  +'<div class="btns"><a class="btn solid" href="#curriculum">See the curriculum</a><a class="btn" href="#paths">Pick a path</a></div></section>'
+  +'<div class="sec-head"><h2>The Course of Study</h2><span>'+SECTIONS.length+' sections · '+TOTAL+' free resources</span></div>'
+  +'<div class="course-list">'+rows+'</div></div>'
+  +'<div class="band"><div class="wrap"><div class="prose"><h2>Breadth plus choice</h2>'
+  +'<p>Like an undergraduate major, the degree asks for a spread of areas and lets you choose within each one. Every section lists more classes than you need. Add the ones you want to My Path and tick off lectures as you go.</p>'
+  +'<div class="rule-card"><strong>To finish</strong><ul>'+reqs+'</ul></div></div></div></div>';
+}
+
+function curriculumView(){
+  var chips=SECTIONS.map(function(s){return '<button type="button" data-act="go-sec" data-sec="'+s.id+'">'+s.num+' '+esc(s.name)+'</button>';}).join("");
+  return '<div class="wrap"><div class="page-head"><span class="kicker">Curriculum map</span><h1>The Course of Study</h1>'
+  +'<p>You do not have to do everything. Each section says how many classes to finish. <b>Core</b> marks the strongest choices. Open a class to see its lectures, textbook and notes. Tick the box beside a class when you finish it.</p></div>'
+  +'<div class="toolbar"><div class="search"><input id="q" type="search" placeholder="Search the curriculum" aria-label="Search the curriculum" autocomplete="off"></div>'
+  +'<label class="switch"><input id="core" type="checkbox"> Core only</label></div>'
+  +'<nav class="idx" aria-label="Sections">'+chips+'</nav><div id="list"></div></div>';
+}
+
+function rowHtml(c,i){
+  var open=!!OPEN[c.id], done=!!S.done[c.id], ch=!!S.chosen[c.id], t=total(c), tk=ticked(c);
+  var meta=[c.by&&c.by!==c.org?c.by+" · "+c.org:c.org];
+  var f=c.fmt; if(c.lec||c.n) f+=", "+(c.lec?c.lec.length:c.n)+(((c.lec?c.lec.length:c.n)===1)?" lecture":" lectures"); if(c.hrs) f+=", "+c.hrs;
+  var tags='<span class="tag '+(c.tag==="core"?"core":"")+'">'+(c.tag==="core"?"Core":c.tag==="intro"?"Intro":"Elective")+'</span><span class="tag">'+(c.free==="open"?"Open":"Audit")+'</span>';
+  if(ch) tags+='<span class="tag mine">In my path</span>';
+  if(t&&tk) tags+='<span class="tag">'+tk+'/'+t+'</span>';
+  var head='<div class="row-main"><input type="checkbox" data-act="done" data-id="'+c.id+'" data-k="d-'+c.id+'" '+(done?"checked":"")+' aria-label="Mark '+esc(c.t)+' complete">'
+   +'<button type="button" class="row-head" data-act="toggle" data-id="'+c.id+'" data-k="t-'+c.id+'" aria-expanded="'+open+'"><span class="n">'+pad(i+1)+'</span><span><span class="title">'+esc(c.t)+'</span><span class="meta">'+esc(meta[0])+' — '+esc(f)+'</span></span><span class="tags">'+tags+'</span></button></div>';
+  var detail="";
+  if(open){
+    var L=link(c), fr=c.free==="open"?"<b>Free:</b> open, no payment or account needed.":"<b>Free:</b> a MOOC you can audit at no cost. Graded work and certificates cost money, and access can change, so check the page first.";
+    var vf=c.v?"<b>Checked:</b> the lecture list was read on the school's own site.":(c.kind?"":"<b>Not checked:</b> details come from a curated list. Confirm the class is still online before you start.");
+    detail+='<div class="detail"><p>'+esc(c.note||"")+'</p><div class="facts"><span>'+fr+'</span>'+(vf?'<span>'+vf+'</span>':"")+'</div>';
+    if(!c.kind){
+      var sb=SECOF[c.id].book, b=c.bk||{};
+      var own=b.c||c.tb||(c.fmt==="MOOC"?"No textbook required. Readings are inside the course.":"No textbook named on the pages I checked.");
+      var av=b.a||c.ta||(c.fmt==="MOOC"?"Included with the course.":"Nothing to buy.");
+      var fl=b.f?{t:b.f,u:b.fu}:(sb?{t:sb.t,u:sb.u}:null);
+      detail+='<div class="facts"><span><b>Textbook:</b> '+esc(own)+'</span><span><b>Is it available?</b> '+esc(av)+'</span>'+(fl?'<span><b>Free companion:</b> <a href="'+esc(fl.u)+'" target="_blank" rel="noopener">'+esc(fl.t)+'</a></span>':'')+'</div>';
+    }
+    detail+='<div class="acts">';
+    if(!c.kind||c.kind==="book") detail+='<button type="button" class="small-btn '+(ch?"on":"")+'" data-act="choose" data-id="'+c.id+'" data-k="c-'+c.id+'" aria-pressed="'+ch+'">'+(ch?"In my path":"Add to my path")+'</button>';
+    if(L) detail+='<a class="small-btn" href="'+esc(L.u)+'" target="_blank" rel="noopener">'+L.l+'</a>';
+    detail+='</div>';
+    if(c.kind==="activity"){
+      detail+='<label class="lec-h" for="note-'+c.id+'">Your notes</label><textarea class="note" id="note-'+c.id+'" data-act="note" data-id="'+c.id+'" placeholder="Write here. Saved in this browser as you type.">'+esc(S.notes[c.id]||"")+'</textarea>';
+    }
+    if(c.steps){
+      var sv=S.steps[c.id]||{};
+      detail+='<ul class="lecs">'+c.steps.map(function(s,j){return '<li><label><input type="checkbox" data-act="step" data-id="'+c.id+'" data-i="'+j+'" data-k="s-'+c.id+'-'+j+'" '+(sv[j]?"checked":"")+'><span>'+esc(s)+'</span></label></li>';}).join("")+'</ul>';
+    }
+    if(c.lec){
+      var lv=S.lec[c.id]||{};
+      detail+='<div class="lec-h">Lectures</div><ul class="lecs">'+c.lec.map(function(s,j){
+        var label=(c.lecUrl?'<a href="'+esc(c.lecUrl+(j+1+(c.lecOffset||0)))+'" target="_blank" rel="noopener">'+esc((j+1)+". "+s)+'</a>':esc(c.raw?s:(j+1)+". "+s));
+        return '<li><label><input type="checkbox" data-act="lec" data-id="'+c.id+'" data-i="'+j+'" data-k="l-'+c.id+'-'+j+'" '+(lv[j]?"checked":"")+'><span>'+label+'</span></label></li>';}).join("")+'</ul>';
+    } else if(c.n>1){
+      var gv=S.lec[c.id]||{}, g="";
+      for(var j=0;j<c.n;j++) g+='<label><input type="checkbox" data-act="lec" data-id="'+c.id+'" data-i="'+j+'" data-k="l-'+c.id+'-'+j+'" '+(gv[j]?"checked":"")+' aria-label="Lecture '+(j+1)+'">'+(j+1)+'</label>';
+      detail+='<div class="lec-h">Lectures watched</div><div class="grid-n">'+g+'</div>';
+    }
+    detail+='</div>';
+  }
+  return '<article class="row'+(done?" done":"")+'" id="c-'+c.id+'">'+head+detail+'</article>';
+}
+
+function listHtml(){
+  var q=query.trim().toLowerCase(), out="", any=false;
+  SECTIONS.forEach(function(s){
+    var items=s.items.filter(function(c){
+      if(coreOnly&&c.tag!=="core") return false;
+      if(!q) return true;
+      return (c.t+" "+(c.by||"")+" "+c.org+" "+(c.note||"")+" "+c.fmt).toLowerCase().indexOf(q)>-1;
+    });
+    if(!items.length) return; any=true;
+    var pickTxt=s.need?'<span>Finish <b>'+s.need+'</b> of '+s.items.length+'</span>':'<span><b>Optional</b>, '+s.items.length+' classes</span>';
+    var dn=doneCount(s.items.map(function(c){return c.id;}));
+    var bk=s.book?'<span>Companion text: <a href="'+esc(s.book.u)+'" target="_blank" rel="noopener">'+esc(s.book.t)+'</a></span>':"";
+    out+='<section class="cs" id="sec-'+s.id+'"><div class="cs-head"><span class="kicker">Section '+s.num+'</span><h2>'+esc(s.name)+'</h2><p>'+esc(s.blurb)+'</p></div>'
+      +'<div class="pick">'+pickTxt+'<span>Done: <b>'+dn+'</b></span>'+bk+'</div><div class="rows">'+items.map(function(c){return rowHtml(c,s.items.indexOf(c));}).join("")+'</div></section>';
+  });
+  if(!any) out='<p class="empty">No classes match. Clear the search or turn off Core only.</p>';
+  return out;
+}
+
+function renderList(){
+  var el=document.getElementById("list"); if(!el) return;
+  var ak=document.activeElement&&document.activeElement.getAttribute&&document.activeElement.getAttribute("data-k");
+  var y=window.scrollY;
+  el.innerHTML=listHtml();
+  if(ak){var n=el.querySelector('[data-k="'+ak+'"]'); if(n) n.focus({preventScroll:true});}
+  window.scrollTo(0,y);
+}
+
+function pathsView(){
+  var cards=PATHS.map(function(p,pi){
+    var groups=Object.keys(p.ids).map(function(g){
+      return '<div class="grp">'+esc(g)+'</div><ol>'+p.ids[g].map(function(id){var c=BYID[id];return '<li>'+esc(c?c.t:id)+(c&&c.by&&c.by!==c.org?' <span style="color:var(--muted)">('+esc(c.by)+')</span>':"")+'</li>';}).join("")+'</ol>';
+    }).join("");
+    return '<article class="path"><h3>'+esc(p.name)+'</h3><p>'+esc(p.who)+'</p>'+groups+'<button type="button" class="small-btn" data-act="load-path" data-p="'+pi+'">Add this path to My Path</button></article>';
+  }).join("");
+  return '<div class="wrap"><div class="page-head"><span class="kicker">Sample paths</span><h1>Four ways through</h1><p>Each path picks classes from every section and satisfies the degree rules. Add one, then swap classes in or out on the Curriculum page. Adding a path never removes your progress.</p></div><div class="paths">'+cards+'</div></div>';
+}
+
+function myPathView(){
+  var req=REQS.map(function(r){
+    var d=doneCount(secItems(r.s).map(function(c){return c.id;})), pc=Math.min(100,Math.round(100*d/r.need));
+    return '<div class="req-row"><span class="nm">'+esc(r.n)+'</span><span class="ct">'+Math.min(d,r.need)+' of '+r.need+(d>r.need?' (+'+(d-r.need)+' extra)':'')+'</span><div class="bar" role="img" aria-label="'+pc+' percent"><i style="width:'+pc+'%"></i></div></div>';
+  }).join("");
+  var ids=Object.keys(S.chosen).filter(function(id){return S.chosen[id]&&BYID[id];});
+  var list=ids.length?ids.map(function(id){
+    var c=BYID[id], t=total(c), tk=ticked(c), pc=pct(c), done=S.done[id];
+    return '<div class="mine-item"><button type="button" class="t" data-act="open-class" data-id="'+id+'">'+esc(c.t)+'</button><span class="sub">'+(done?"Complete":(t?tk+" of "+t+" done":"Not started"))+'</span><span class="sub" style="grid-column:1/-1">'+esc(SECOF[id].name)+' · '+esc(c.by&&c.by!==c.org?c.by:c.org)+'</span><div class="bar" role="img" aria-label="'+pc+' percent"><i style="width:'+pc+'%"></i></div></div>';
+  }).join(""):'<p class="empty">Nothing here yet. Add classes from the <a href="#curriculum">Curriculum</a>, or load a <a href="#paths">sample path</a>.</p>';
+  return '<div class="wrap"><div class="page-head"><span class="kicker">My path</span><h1>Where you are</h1><p>Progress counts a class when you tick its box or tick every lecture. It is saved in this browser only.</p></div>'
+   +'<div class="sec-head"><h2>Degree requirements</h2></div><div class="req">'+req+'</div>'
+   +'<div class="sec-head"><h2>My classes</h2><span>'+ids.length+' chosen</span></div><div class="mine-list">'+list+'</div>'
+   +'<div class="danger"><button type="button" class="small-btn" data-act="reset">'+(resetArmed?"Click again to erase all progress":"Reset all progress")+'</button></div></div>';
+}
+
+function aboutView(){
+  return '<div class="wrap"><div class="page-head"><span class="kicker">About</span><h1>How this works</h1></div><div class="prose">'
+  +'<h2>Self-taught, not unguided</h2><p>Strong psychology teaching is already free: recorded university classes, open courseware and long audio series. It is scattered and easy to lose. This site puts it in order, shows what each class covers, and lets you track your way through.</p>'
+  +'<h2>What "free" means here</h2><p><strong>Open</strong> classes need no payment and no account. <strong>Audit</strong> classes are Coursera or edX courses you can watch free, while graded work and certificates cost money. Platforms change their rules, so check the page before you start. Anything paid with no free way in was left out.</p>'
+  +'<h2>What was checked</h2><p>Only the Yale PSYC 110, MIT 9.00SC and MIT 9.13 lecture lists, and the short psychopathology set, were read on the schools\' own sites. Most other classes come from <a href="'+OC+'" target="_blank" rel="noopener">Open Culture\'s psychology list</a> and web searches. The label on each class says which. "Find this class" opens a web search, because I did not verify those links.</p>'
+  +'<h2>Textbooks</h2><p>Every class card has a Textbook line and an "Is it available?" line. Where a class has its own textbook, that is its core reading. I confirmed the textbook for Yale PSYC 110, MIT 9.00 and 9.00SC, MIT 9.13, Discovering Psychology, Learning How to Learn and Yale PHIL 181. For many classes I found no syllabus, and the card says so instead of guessing. Several class textbooks are paid, so each has a free companion, and every section header links to a free book for that area.</p>'
+  +'<h2>Your data</h2><p>Everything you tick or write is stored in your browser on this device. It is never sent anywhere. Clearing site data erases it, and it does not move between devices.</p>'
+  +'<h2>Credit</h2><p>The layout is modeled on <a href="https://study.philosophypublics.com/" target="_blank" rel="noopener">Philosophy for Independent Scholars</a>. This site has no connection to it.</p></div></div>';
+}
+
+/* ---------- router ---------- */
+function route(){
+  var h=(location.hash||"").replace("#","")||"home", name=["home","curriculum","paths","my-path","about"].indexOf(h)>-1?h:"home";
+  document.querySelectorAll("[data-nav]").forEach(function(a){ if(a.getAttribute("data-nav")===name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  view.innerHTML = name==="home"?homeView(): name==="curriculum"?curriculumView(): name==="paths"?pathsView(): name==="my-path"?myPathView(): aboutView();
+  if(name==="curriculum"){
+    var qi=document.getElementById("q"), ci=document.getElementById("core");
+    qi.value=query; ci.checked=coreOnly;
+    qi.addEventListener("input",function(){query=qi.value;renderList();});
+    ci.addEventListener("change",function(){coreOnly=ci.checked;renderList();});
+    renderList();
+    if(pendingScroll){var t=document.getElementById(pendingScroll); if(t){t.scrollIntoView();} pendingScroll=null;} else window.scrollTo(0,0);
+  } else window.scrollTo(0,0);
+  document.title="The Open Psychology Degree";
+}
+window.addEventListener("hashchange",route);
+
+function refresh(){
+  var h=(location.hash||"").replace("#","")||"home";
+  if(h==="curriculum") renderList(); else route();
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click",function(e){
+  var el=e.target.closest("[data-act]"); if(!el) return;
+  var act=el.getAttribute("data-act"), id=el.getAttribute("data-id");
+  if(el.tagName==="INPUT"||el.tagName==="TEXTAREA") return;
+  if(act==="toggle"){OPEN[id]=!OPEN[id];renderList();}
+  else if(act==="choose"){S.chosen[id]=S.chosen[id]?0:1;save();renderList();}
+  else if(act==="go-sec"){pendingScroll="sec-"+el.getAttribute("data-sec"); if((location.hash||"")==="#curriculum") route(); else location.hash="curriculum";}
+  else if(act==="load-path"){
+    var p=PATHS[+el.getAttribute("data-p")]; Object.keys(p.ids).forEach(function(g){p.ids[g].forEach(function(cid){S.chosen[cid]=1;});}); save(); location.hash="my-path";
+  }
+  else if(act==="open-class"){OPEN[id]=true; pendingScroll="c-"+id; location.hash="curriculum"; }
+  else if(act==="reset"){
+    if(!resetArmed){resetArmed=true;route();setTimeout(function(){resetArmed=false;},6000);}
+    else{S={chosen:{},done:{},lec:{},notes:{},steps:{}};save();resetArmed=false;route();}
+  }
+});
+document.addEventListener("change",function(e){
+  var el=e.target; if(el.tagName!=="INPUT") return;
+  var act=el.getAttribute("data-act"), id=el.getAttribute("data-id"); if(!act) return;
+  var c=BYID[id];
+  if(act==="done"){S.done[id]=el.checked?1:0; if(el.checked) S.chosen[id]=1; save(); refresh();}
+  else if(act==="lec"){
+    var i=el.getAttribute("data-i"); S.lec[id]=S.lec[id]||{}; S.lec[id][i]=el.checked?1:0;
+    if(el.checked) S.chosen[id]=1;
+    if(c&&ticked(c)===total(c)) S.done[id]=1; else if(c&&!el.checked) S.done[id]=0;
+    save(); refresh();
+  }
+  else if(act==="step"){
+    var j=el.getAttribute("data-i"); S.steps[id]=S.steps[id]||{}; S.steps[id][j]=el.checked?1:0;
+    if(c&&ticked(c)===total(c)) S.done[id]=1; else if(!el.checked) S.done[id]=0;
+    save(); refresh();
+  }
+});
+document.addEventListener("input",function(e){
+  var el=e.target; if(el.getAttribute&&el.getAttribute("data-act")==="note"){S.notes[el.getAttribute("data-id")]=el.value;save();}
+});
+
+/* theme */
+var themeBtn=document.getElementById("theme");
+function dark(){var t=document.documentElement.getAttribute("data-theme"); if(t) return t==="dark"; return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;}
+function paintBtn(){themeBtn.textContent=dark()?"Light":"Dark";}
+try{var st=localStorage.getItem(TKEY); if(st) document.documentElement.setAttribute("data-theme",st);}catch(e){}
+themeBtn.addEventListener("click",function(){var n=dark()?"light":"dark"; document.documentElement.setAttribute("data-theme",n); try{localStorage.setItem(TKEY,n);}catch(e){} paintBtn();});
+paintBtn();
+
+route();
+})();
+</script>
+
+</body>
+</html>
