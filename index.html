@@ -219,7 +219,7 @@ var SECTIONS=[
   steps:["Read the abstract and write the study's claim in one sentence.","Find the sample: who took part, and how many.","Name the independent variable and the dependent variable.","Check whether people were randomly assigned to conditions.","Find the effect size, not only the p-value.","Write down one limit the authors name themselves."]},
  {id:"i-think",t:"How to Think Like a Psychologist",by:"Several Stanford professors",org:"Stanford University",fmt:"Video",free:"open",tag:"intro",note:"A short orientation series from Stanford. Listed on Open Culture; the episode count was not checked.",q:"Stanford How to Think Like a Psychologist iTunes U video"}
  ]},
-{id:"s01",num:"01",name:"Introduction to Psychology",blurb:"The whole field in one class. Pick several, since each teacher stresses different things.",need:5,book:{t:"OpenStax Psychology 2e",u:"https://openstax.org/details/books/psychology-2e"},
+{id:"s01",num:"01",name:"Introduction to Psychology",blurb:"The whole field in one class. Pick two, so you hear it from two different teachers.",need:2,book:{t:"OpenStax Psychology 2e",u:"https://openstax.org/details/books/psychology-2e"},
  items:[
  {id:"y110",t:"PSYC 110: Introduction to Psychology",by:"Paul Bloom",org:"Yale University",fmt:"Video",n:20,hrs:"About 18 hrs",free:"open",tag:"core",v:1,url:YALE,lec:YALE_LEC,lecUrl:"https://oyc.yale.edu/psychology/psyc-110/lecture-",note:"Recorded in Spring 2007. Brain, development, language, memory, emotion, morality, mental illness and happiness, taught as one story.",bk:{c:"Peter Gray, Psychology (Worth, 5th ed.), plus Gary Marcus, ed., The Norton Psychology Reader (2006). Both are listed on the course syllabus.",a:"Not free. Both are paid books, so look for used copies or a library loan. The lectures stand on their own without them.",f:"OpenStax Psychology 2e (free)",fu:"https://openstax.org/details/books/psychology-2e"}},
  {id:"m900",t:"9.00SC: Introduction to Psychology",by:"John Gabrieli",org:"MIT OpenCourseWare",fmt:"Video",n:24,hrs:"About 20 hrs",free:"open",tag:"core",v:1,url:M900,lec:MIT_LEC,note:"Fall 2011. A neuroscience-forward survey with notes, three exams and solutions on the course page.",bk:{c:"Kosslyn and Rosenberg, the text MIT's class used.",a:"Not free, and OCW cannot post it. MIT links a free Creative Commons text by Stangor as the alternative, in the Open Textbook section of the course page.",f:"Stangor, Introduction to Psychology (free)",fu:M900}},
@@ -369,7 +369,7 @@ var SECTIONS=[
 
 var REQS=[
  {n:"Start Here",s:["s00"],need:3},
- {n:"Introduction to Psychology",s:["s01"],need:5},
+ {n:"Introduction to Psychology",s:["s01"],need:2},
  {n:"Cognitive Psychology",s:["s02"],need:4},
  {n:"Social and Personality",s:["s03"],need:4},
  {n:"Abnormal and Clinical",s:["s04"],need:4},
@@ -379,10 +379,10 @@ var REQS=[
 ];
 
 var PATHS=[
- {name:"The Full B.A.",who:"The whole degree, with breadth in every branch.",ids:{"Start":["i-intent","i-study"],"Introduction":["y110","m900","uhi","tor","crash"],"Cognitive":["uhc","m913","lhtl","mem"],"Social and Personality":["willer","plous","uhp","gruber"],"Abnormal and Clinical":["annen","uhcl","psyset","pfa"],"Electives":["sap","wb","for","st1"],"Textbooks":["osx","fpd"],"Capstone":["cap1"]}},
- {name:"Clinical Track",who:"For people drawn to mental health, therapy and why minds break down.",ids:{"Start":["i-intent","i-study"],"Introduction":["y110","m900","uhi","crash","tor"],"Cognitive":["uhc","lhtl","mem","set"],"Social and Personality":["uhp","gruber","plous","rel"],"Abnormal and Clinical":["annen","uhcl","psyset","dep","pfa","bent"],"Electives":["sap","wb","mind","par"],"Textbooks":["osx","fpd"],"Capstone":["cap1"]}},
- {name:"Mind and Brain Track",who:"For people who want the science of perception, memory and the brain.",ids:{"Start":["i-intent","i-study","i-think"],"Introduction":["m900","y110","uhi","w900","tor"],"Cognitive":["uhc","m913","schil","bmm","m965"],"Social and Personality":["willer","uhp","gruber","mor"],"Abnormal and Clinical":["psyset","annen","uhcl","bent"],"Electives":["sap","suz","kochn","st1"],"Textbooks":["osx","bay"],"Capstone":["cap1"]}},
- {name:"Light and Listening",who:"For slow weeks: audio, short talks and one anchor course. No pressure.",ids:{"Start":["i-intent"],"Introduction":["w900","crash","zimb","y110","stey"],"Cognitive":["hyman","lhtl","mem","set"],"Social and Personality":["willer","gruber","mor","karney"],"Abnormal and Clinical":["dep","myths","psyset","annen"],"Electives":["wb","sch1","tbs","bud"],"Textbooks":["noba"],"Capstone":["cap1"]}}
+ {name:"The Full B.A.",who:"The whole degree, with breadth in every branch.",ids:{"Start":["i-intent","i-study"],"Introduction":["y110","m900"],"Cognitive":["uhc","m913","lhtl","mem"],"Social and Personality":["willer","plous","uhp","gruber"],"Abnormal and Clinical":["annen","uhcl","psyset","pfa"],"Electives":["sap","wb","for","st1"],"Textbooks":["osx","fpd"],"Capstone":["cap1"]}},
+ {name:"Clinical Track",who:"For people drawn to mental health, therapy and why minds break down.",ids:{"Start":["i-intent","i-study"],"Introduction":["y110","uhi"],"Cognitive":["uhc","lhtl","mem","set"],"Social and Personality":["uhp","gruber","plous","rel"],"Abnormal and Clinical":["annen","uhcl","psyset","dep","pfa","bent"],"Electives":["sap","wb","mind","par"],"Textbooks":["osx","fpd"],"Capstone":["cap1"]}},
+ {name:"Mind and Brain Track",who:"For people who want the science of perception, memory and the brain.",ids:{"Start":["i-intent","i-study","i-think"],"Introduction":["m900","w900"],"Cognitive":["uhc","m913","schil","bmm","m965"],"Social and Personality":["willer","uhp","gruber","mor"],"Abnormal and Clinical":["psyset","annen","uhcl","bent"],"Electives":["sap","suz","kochn","st1"],"Textbooks":["osx","bay"],"Capstone":["cap1"]}},
+ {name:"Light and Listening",who:"For slow weeks: audio, short talks and one anchor course. No pressure.",ids:{"Start":["i-intent"],"Introduction":["w900","crash"],"Cognitive":["hyman","lhtl","mem","set"],"Social and Personality":["willer","gruber","mor","karney"],"Abnormal and Clinical":["dep","myths","psyset","annen"],"Electives":["wb","sch1","tbs","bud"],"Textbooks":["noba"],"Capstone":["cap1"]}}
 ];
 
 /* ---------- state ---------- */
